@@ -17,6 +17,8 @@ func main() {
 	y := 0
 	heading := 0
 
+	visitedCoords := map[string]bool{}
+
 	for _, c := range commands {
 		switch {
 		case strings.Contains(c, "L"):
@@ -33,27 +35,55 @@ func main() {
 			log.Fatal(err)
 		}
 
+		xDirection := 0
+		yDirection := 0
+
 		switch heading {
 		case 4:
 			heading = 0
 			fallthrough
 		case 0:
 			// North
-			y += distance
+			yDirection = 1
+			xDirection = 0
 		case 1:
 			// East
-			x += distance
+			xDirection = 1
+			yDirection = 0
 		case 2:
 			// South
-			y -= distance
+			yDirection = -1
+			xDirection = 0
 		case -1:
 			heading = 3
 			fallthrough
 		case 3:
 			// West
-			x -= distance
+			xDirection = -1
+			yDirection = 0
 		default:
 			log.Fatalf("unsupported heading '%d'", heading)
+		}
+
+		found := false
+
+		for i := 0; i < distance; i++ {
+			x += xDirection
+			y += yDirection
+
+			key := fmt.Sprintf("%d,%d", x, y)
+			found = visitedCoords[key]
+			if found {
+				fmt.Printf("First visited twice: (%d, %d)\n", x, y)
+				fmt.Println("Distance away:", math.Abs(float64(x))+math.Abs(float64(y)))
+				break
+			}
+
+			visitedCoords[key] = true
+		}
+
+		if found {
+			break
 		}
 	}
 
