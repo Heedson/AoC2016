@@ -17,7 +17,7 @@ func main() {
 	y := 0
 	heading := 0
 
-	visitedCoords := map[string]bool{}
+	visitedCoords := map[string]struct{}{}
 
 	for _, c := range commands {
 		switch {
@@ -72,14 +72,14 @@ func main() {
 			y += yDirection
 
 			key := fmt.Sprintf("%d,%d", x, y)
-			found = visitedCoords[key]
+			_, found = visitedCoords[key]
 			if found {
 				fmt.Printf("First visited twice: (%d, %d)\n", x, y)
 				fmt.Println("Distance away:", math.Abs(float64(x))+math.Abs(float64(y)))
 				break
 			}
 
-			visitedCoords[key] = true
+			visitedCoords[key] = struct{}{}
 		}
 
 		if found {
