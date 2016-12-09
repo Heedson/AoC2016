@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
+	"strconv"
 	"strings"
 )
 
@@ -11,6 +13,8 @@ func main() {
 
 	commands := strings.Split(input, ", ")
 
+	x := 0
+	y := 0
 	heading := 0
 
 	for _, c := range commands {
@@ -23,14 +27,36 @@ func main() {
 			log.Fatalf("unsupported direction '%s'", c[:1])
 		}
 
-		if heading < 0 {
-			heading = 3
+		d := c[1:]
+		distance, err := strconv.Atoi(d)
+		if err != nil {
+			log.Fatal(err)
 		}
 
-		if heading > 3 {
+		switch heading {
+		case 4:
 			heading = 0
+			fallthrough
+		case 0:
+			// North
+			y += distance
+		case 1:
+			// East
+			x += distance
+		case 2:
+			// South
+			y -= distance
+		case -1:
+			heading = 3
+			fallthrough
+		case 3:
+			// West
+			x -= distance
+		default:
+			log.Fatalf("unsupported heading '%d'", heading)
 		}
 	}
 
-	fmt.Println(commands)
+	fmt.Printf("Finishing destination: (%d, %d)\n", x, y)
+	fmt.Println("Distance away:", math.Abs(float64(x))+math.Abs(float64(y)))
 }
