@@ -86,7 +86,4 @@ func main() {
 			break
 		}
 	}
-
-	fmt.Printf("Finishing destination: (%d, %d)\n", x, y)
-	fmt.Println("Distance away:", math.Abs(float64(x))+math.Abs(float64(y)))
 }
