@@ -53,29 +53,17 @@ func Run() error {
 }
 
 func calculateTriangle(values []int) int {
-	longest := 0
-	longestIndex := 0
-	for i, v := range values {
-		if v > longest {
-			longest = v
-			longestIndex = i
-		}
+	if values[0]+values[1] <= values[2] {
+		return 0
 	}
 
-	switch longestIndex {
-	case 0:
-		if values[1]+values[2] > values[0] {
-			return 1
-		}
-	case 1:
-		if values[0]+values[2] > values[1] {
-			return 1
-		}
-	case 2:
-		if values[0]+values[1] > values[2] {
-			return 1
-		}
+	if values[1]+values[2] <= values[0] {
+		return 0
 	}
 
-	return 0
+	if values[0]+values[2] <= values[1] {
+		return 0
+	}
+
+	return 1
 }
