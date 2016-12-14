@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/heedson/AoC2016/day1"
+	"github.com/heedson/AoC2016/day2"
 )
 
 func main() {
@@ -22,6 +23,10 @@ func main() {
 			log.Fatal(err)
 		}
 	case 2:
+		err := day2.Run()
+		if err != nil {
+			log.Fatal(err)
+		}
 	default:
 		log.Fatalf("Day '%d' is not implemented (yet)", *day)
 	}
