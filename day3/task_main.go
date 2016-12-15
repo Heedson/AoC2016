@@ -31,19 +31,26 @@ func Run() error {
 		return err
 	}
 
-	for _, t := range triangles {
-		vs := reg.FindStringSubmatch(t)
-		vs = vs[1:]
+	vertices := make([][]string, len(triangles))
+	for i := 0; i < len(triangles); i += 3 {
+		vertices[i] = reg.FindStringSubmatch(triangles[i])
+		vertices[i] = vertices[i][1:]
+		vertices[i+1] = reg.FindStringSubmatch(triangles[i+1])
+		vertices[i+1] = vertices[i+1][1:]
+		vertices[i+2] = reg.FindStringSubmatch(triangles[i+2])
+		vertices[i+2] = vertices[i+2][1:]
 
-		values := make([]int, len(vs))
-		for i, v := range vs {
-			values[i], err = strconv.Atoi(v)
-			if err != nil {
-				return err
+		for j := 0; j < 3; j++ {
+			values := make([]int, 3)
+			for k := 0; k < 3; k++ {
+				values[k], err = strconv.Atoi(vertices[i+k][j])
+				if err != nil {
+					return err
+				}
 			}
-		}
 
-		totalRealTriangles += calculateTriangle(values)
+			totalRealTriangles += calculateTriangle(values)
+		}
 	}
 
 	fmt.Println("Total entries:", len(triangles))
