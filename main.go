@@ -8,6 +8,7 @@ import (
 	"github.com/heedson/AoC2016/day1"
 	"github.com/heedson/AoC2016/day2"
 	"github.com/heedson/AoC2016/day3"
+	"github.com/heedson/AoC2016/day4"
 )
 
 func main() {
@@ -32,6 +33,8 @@ func runDay(day int) error {
 		return day2.Run()
 	case 3:
 		return day3.Run()
+	case 4:
+		return day4.Run()
 	default:
 		return fmt.Errorf("Day '%d' is not implemented (yet)", day)
 	}
