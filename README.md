@@ -15,3 +15,5 @@ This will run the 1st day's challenge.
 ## Days completed
 - Day 1
 - Day 2
+- Day 3
+- Day 4
